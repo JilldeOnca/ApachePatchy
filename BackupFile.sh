@@ -1,27 +1,24 @@
 #!/usr/bin/env bash
 
-#save a backup of file to the backup directory
+#save a backup of file to the "backup_config" directory
+#Syntax: backup <file name>"
 backup(){
     
     #Checks for the backup_config directory
-    if [[ -d "backup_config" ]]; then 
-        echo "backup directory exists"
-    else
+    if [[ ! -d "backup_config" ]]; then 
         mkdir backup_config
-        echo "Backup directory created"
-        ls 
     fi
 
-    #Creates a new file name for the backup file. This file name contains time of it's creation.
-    fileName="$1"
-    newFileName=($(date +%m%d%Y%H%M%S)$fileName)
-    echo "new file: $newFileName"
+    #Copies current file into the Backup directory
+    cp --backup=numbered $1 backup_config/$1
 
-    #Copies current file into the Backup directory under the new file name
-    echo "cp ${fileName} backup_config/${newFileName}"
-    cp $fileName backup_config/${newFileName}
-    ls backup_config/
 }
 
+#Checks that a file has been passed into this script as the second agrument ($1) in the CLI
+#if [[ -e $1 ]]; then 
+#    backup "$1"
+#else
+#    echo "Error: Missing file name"
+#    echo "Syntax: ./BackupFile.sh <file name>"
+#fi
 
- backup "$1"
