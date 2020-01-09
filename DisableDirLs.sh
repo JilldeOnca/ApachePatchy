@@ -1,18 +1,18 @@
 #!/bin/bash  
-source BackupFile.sh        
+source BackupFile.sh     
+#APACHECONFIG='/etc/apache2/apache2.conf'
+APACHECONFIG='apache2.conf'   
 
 DisableDirLs(){
-    #count=$(cat /etc/apache2/apache2.conf | grep -c Indexes)
-    count=$(cat apache2.conf | grep -c Indexes)
+
+    count=$(cat ${APACHECONFIG} | grep  -B 1 Indexes | grep -c "<Directory />")
     #echo "count = ${count}"
 
-    #if [ ${count} -gt 1 ]; then 
-    # echo "too big"; 
-    if [ ${count}>=1 ]; then 
-        echo "Best practices violation in 'Option Indexes':"
-        echo "The '/'' directory (root directory) should not include the 'Option Indexes'."
+    if [ ${count} = 1 ]; then 
+        echo "Best practices violation using 'Option Indexes':"
+        echo "The root directory ('/') should not include the 'Option Indexes'."
         echo "Would you like to remove this property? (y/n) "
-        read -r answer
+        #read -r answer
 
         if [ ${answer} == 'y' ]; then
             echo "Backing up apache2.config file....."
@@ -20,11 +20,14 @@ DisableDirLs(){
             backup apache2.conf
             echo "...."
             sleep .25
-            echo "Updating apache2.config file with best practices choices(s)....."
-
+            echo "Updating apache2.config file....."
+            sleep .25
+            echo "Disabling online directory listings for root directory......"
+            sleep .25
             #here code to replace the line containing option indexes, with the line not containing option indexes (cut indexes)
-            sed -i 's/ Indexes/ -Indexes/' apache2.conf
-            sed -i 's/+Indexes/-Indexes/' apache2.conf
+            sed -i 's/ Indexes//' ${APACHECONFIG}
+            #sed -i 's/+Indexes/-Indexes/' apache2.conf
+            #sed -i 's/ ${diropt_after}/ -Indexes/' apache2.conf
 
             echo "........."
             sleep .25
@@ -36,8 +39,7 @@ DisableDirLs(){
         else 
             echo "Please enter y for Yes or n for No" 
         fi;
-
+    else
+        echo "The root directory is not configured to be indexed. Your server is already in compliance, no changes made."
     fi;
 }
-
-
