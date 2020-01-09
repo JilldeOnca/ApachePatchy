@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #save a backup of file to the "backup_config" directory
-#Syntax: backup <file name>"
+#Syntax: backup <file name>
 backup(){
     
     #Checks for the backup_config directory
