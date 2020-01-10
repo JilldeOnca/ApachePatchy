@@ -5,7 +5,7 @@ SECURITYCONFIG='security.conf'
 
 DisableServerSig(){
     count=$(cat ${SECURITYCONFIG} | grep  -c "ServerSignature On")
-    echo ${count}
+    #echo ${count}
 
     if [ ${count} = 1 ]; then 
         echo "Best practices violation 'ServerSignature' is on:"
@@ -29,6 +29,12 @@ DisableServerSig(){
             echo "........."
             sleep .25
             echo "security.config file successfully updated!"
+            echo "........."
+            sleep .25
+            echo "Restarting Apache Server...."
+            sleep .25
+            system apache2 restart
+            echo "Apache Server restarted. New configuration activated!"
             
         elif [ ${answer} == 'n' ]; then
             echo "Best practice not accepted by admin. ServerSignature will remain unchanged ('On')."
@@ -36,6 +42,6 @@ DisableServerSig(){
             echo "Please enter y for Yes or n for No" 
         fi;
     else
-        echo "The website is not configured to display server details. Your server is already in compliance, no changes made."
+        echo "The website is not configured to display server details. Your server is already in compliance! No changes made."
     fi;
 }
