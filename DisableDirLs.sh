@@ -1,11 +1,9 @@
 #!/bin/bash  
-source BackupFile.sh     
-#APACHECONFIG='/etc/apache2/apache2.conf'
-APACHECONFIG='apache2.conf'   
+source BackupFile.sh        
 
 DisableDirLs(){
 
-    count=$(cat ${APACHECONFIG} | grep  -B 1 Indexes | grep -c "<Directory />")
+    count=$(cat ${APACHECONFIG} | grep  -B 1 Indexes | grep -c "<Directory /var/www/>")
     #echo "count = ${count}"
 
     if [ ${count} = 1 ]; then 
