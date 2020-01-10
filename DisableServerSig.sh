@@ -1,7 +1,5 @@
 #!/bin/bash  
 source BackupFile.sh        
-#SECURITYCONFIG='/etc/apache2/conf-available/security.conf'
-SECURITYCONFIG='security.conf'
 
 DisableServerSig(){
     count=$(cat ${SECURITYCONFIG} | grep  -c "ServerSignature On")
