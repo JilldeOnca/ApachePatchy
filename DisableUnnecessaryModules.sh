@@ -24,6 +24,8 @@ DisableMods(){
 done
 }
 
+#main function
+DisableUnnecessaryModules(){
 echo "Best security practice suggest that Unnecessary or Unused modules be disabled."
 echo "Here is a list of modules currently enabled on your web server:"
 
@@ -63,3 +65,4 @@ elif [ ${answer}=='n' ]; then
   #Read in selection into list
   IFS=' ' read -ra Mods2Disable
 fi;
+}
