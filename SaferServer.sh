@@ -5,6 +5,11 @@ source DisableServerSig.sh
 source UnfollowSymLinks.sh
 source DisableUnnecessaryModules.sh
 
+APACHECONFIG='/etc/apache2/apache2.conf'
+#APACHECONFIG='apache2.conf' 
+#SECURITYCONFIG='/etc/apache2/conf-available/security.conf'
+SECURITYCONFIG='security.conf'
+
 echo "Welcome to SaferServer!"
 echo
 echo "Please choose the configuration you would like to make more secure:"
@@ -19,7 +24,7 @@ read -r selection
 
 #echo $selection
 while [[ ($selection != 'X') && ($selection != 'x') ]]; do
-echo $selection
+#echo $selection
 
     if [[ ($selection == 'A') || ($selection == 'a') ]]; then
         echo "Scanning configuration for enabled indexing of the root directory....."
