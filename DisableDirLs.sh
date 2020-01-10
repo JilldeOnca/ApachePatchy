@@ -12,7 +12,7 @@ DisableDirLs(){
         echo "Best practices violation using 'Option Indexes':"
         echo "The root directory ('/') should not include the 'Option Indexes'."
         echo "Would you like to remove this property? (y/n) "
-        #read -r answer
+        read -r answer
 
         if [ ${answer} == 'y' ]; then
             echo "Backing up apache2.config file....."
@@ -32,6 +32,12 @@ DisableDirLs(){
             echo "........."
             sleep .25
             echo "apache2.config file successfully updated!"
+            echo "........."
+            sleep .25
+            echo "Restarting Apache Server...."
+            sleep .25
+            system apache2 restart
+            echo "Apache Server restarted. New configuration activated!"
 
         elif [ ${answer} == 'n' ]; then
             echo "Best practice not accepted by admin. Option Indexes in root directory will remain unchanged."
@@ -40,6 +46,6 @@ DisableDirLs(){
             echo "Please enter y for Yes or n for No" 
         fi;
     else
-        echo "The root directory is not configured to be indexed. Your server is already in compliance, no changes made."
+        echo "The root directory is not configured to be indexed. Your server is already in compliance! No changes made."
     fi;
 }
